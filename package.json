@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/barbarojs/barbarojs-http/issues"
   },
-  "homepage": "https://github.com/barbarojs/barbarojs-http#readme"
+  "homepage": "https://github.com/barbarojs/barbarojs-http#readme",
+  "dependencies": {
+    "whatwg-fetch": "^2.0.1"
+  }
 }
