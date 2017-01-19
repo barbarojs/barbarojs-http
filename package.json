@@ -2,7 +2,7 @@
   "name": "barbarojs-http",
   "version": "1.0.0",
   "description": "fetch wrapper",
-  "main": "build/bundle.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env NODE_ENV=production webpack -p --progress"
@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/barbarojs/barbarojs-http#readme",
   "files": [
-    "build/bundle.js"
+    "src/index.js",
+	"src/http.js",
+	"src/http-provider.js",
+
   ],
   "dependencies": {
     "whatwg-fetch": "^2.0.1"
