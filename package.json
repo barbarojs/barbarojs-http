@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "fetch wrapper",
   "main": "build/index.js",
+  "files": [
+    "src",
+    "build"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "babel -d build/ src/"
