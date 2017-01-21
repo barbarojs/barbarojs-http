@@ -3,10 +3,6 @@
   "version": "1.0.1",
   "description": "fetch wrapper",
   "main": "build/index.js",
-  "files": [
-    "src",
-    "build"
-  ],
   "scripts": {
     "test": "karma start karma.conf.js --single-run",
     "compile": "babel -d build/ src/"
@@ -15,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/barbarojs/barbarojs-http.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Marco Sangalli <sangalli.marco@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/barbarojs/barbarojs-http/issues"
   },
