@@ -21,6 +21,6 @@ let conn = new http('/test/:id');
 conn.get({id: 123, q: 1}).then(x => console.log(x)); // /test/123?q=1
 
 // post
-conn.get({id: 123, q: 1, name: 'me'}).then(x => console.log(x)); // /test/123 -> body {q:1, name: 'me'}
+conn.post({id: 123, q: 1, name: 'me'}).then(x => console.log(x)); // /test/123 -> body {q:1, name: 'me'}
 ```
 
