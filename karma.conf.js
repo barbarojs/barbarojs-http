@@ -1,21 +1,13 @@
 require('babel-register');
-var webpack = require('./webpack.config.babel.js');
 var path = require('path');
 
-webpack.module.loaders.push({
-	test: /\.jsx?$/,
-	loader: 'isparta',
-	include: path.resolve(__dirname, '../src')
-});
-
-module.exports = function(config) {
+module.exports = function (config) {
 	config.set({
 		basePath: './',
 		frameworks: ['mocha', 'chai-sinon'],
 		reporters: ['mocha', 'coverage'],
 		coverageReporter: {
-			reporters: [
-				{
+			reporters: [{
 					type: 'text-summary'
 				},
 				{
@@ -33,14 +25,25 @@ module.exports = function(config) {
 		preprocessors: {
 			'test/**/*.js': ['webpack'],
 			'src/**/*.js': ['webpack'],
-			'**/*.js': ['sourcemap']
+			// '**/*.js': ['sourcemap']
 		},
 		babelPreprocessor: {
-            options: {
-                presets: ['es2015']
-            }
-        },
-		webpack: webpack,
-		webpackMiddleware: { noInfo: true }
+			options: {
+				presets: ['es2015']
+			}
+		},
+		webpack: {
+			module: {
+				loaders: [{
+					test: /\.js/,
+					exclude: /node_modules/,
+					loader: 'babel-loader'
+				}]
+			},
+			watch: true
+		},
+		webpackMiddleware: {
+			noInfo: true
+		}
 	});
 };

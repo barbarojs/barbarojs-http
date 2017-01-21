@@ -1,9 +1,8 @@
-import {http} from '../src/libs';
+import {http} from '../src/index';
 
 /*global sinon,expect*/
 
 describe('Http', () => {
-	let scratch;
 
 	before(() => {});
 
