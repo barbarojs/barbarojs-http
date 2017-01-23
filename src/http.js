@@ -125,4 +125,25 @@ export default class http {
 			return res;
 		});
 	}
+
+	patch(data) {
+		let {URI, options} = this.prepare(VERBS.PATCH, data);
+		return fetch(URI, options).then((res) => {
+			return res;
+		});
+	}
+
+	put(data) {
+		let {URI, options} = this.prepare(VERBS.PUT, data);
+		return fetch(URI, options).then((res) => {
+			return res;
+		});
+	}
+
+	delete(data) {
+		let {URI, options} = this.prepare(VERBS.DELETE, data);
+		return fetch(URI, options).then((res) => {
+			return res;
+		});
+	}
 }

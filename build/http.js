@@ -176,6 +176,39 @@ var http = function () {
 				return res;
 			});
 		}
+	}, {
+		key: 'patch',
+		value: function patch(data) {
+			var _prepare3 = this.prepare(VERBS.PATCH, data),
+			    URI = _prepare3.URI,
+			    options = _prepare3.options;
+
+			return fetch(URI, options).then(function (res) {
+				return res;
+			});
+		}
+	}, {
+		key: 'put',
+		value: function put(data) {
+			var _prepare4 = this.prepare(VERBS.PUT, data),
+			    URI = _prepare4.URI,
+			    options = _prepare4.options;
+
+			return fetch(URI, options).then(function (res) {
+				return res;
+			});
+		}
+	}, {
+		key: 'delete',
+		value: function _delete(data) {
+			var _prepare5 = this.prepare(VERBS.DELETE, data),
+			    URI = _prepare5.URI,
+			    options = _prepare5.options;
+
+			return fetch(URI, options).then(function (res) {
+				return res;
+			});
+		}
 	}]);
 
 	return http;
