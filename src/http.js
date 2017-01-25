@@ -20,6 +20,9 @@ export default class http {
 		this.createParams(apiURI);
 	}
 
+	/**
+	 * Build params struct
+	 */
 	createParams(URI) {
 		let lookup = new Map();
 
@@ -41,6 +44,9 @@ export default class http {
 		};
 	}
 
+	/**
+	 * Interpolate params
+	 */
 	interpolate(data) {
 		let newParts = this.interpolations.parts.slice(0);
 
@@ -51,6 +57,9 @@ export default class http {
 		return newParts.join('/');
 	}
 
+	/**
+	 * Remap data
+	 */
 	remap(data) {
 		let dataKeys = Object.keys(data);
 		let params = {};
@@ -59,9 +68,12 @@ export default class http {
 		dataKeys.filter(x => this.interpolations.keys.includes(x)).forEach(x => params[x] = data[x]);
 		dataKeys.filter(x => !this.interpolations.keys.includes(x)).forEach(x => payload[x] = data[x]);
 
-		return {params, payload};
+		return { params, payload };
 	}
 
+	/**
+	 * Call this only in test
+	 */
 	prepare(method, data) {
 		// get params for interpolation and payload
 		let {params, payload} = this.remap(data);
@@ -70,7 +82,7 @@ export default class http {
 		let URI = this.interpolate(params);
 
 		// get default fetch options form provider
-		let options = Object.assign(this.provider.getOptions(), {method});
+		let options = Object.assign(this.provider.getOptions(), { method });
 
 		// check if payload is not empty
 		if (Object.keys(payload).length) {
@@ -85,6 +97,24 @@ export default class http {
 		return {URI, options};
 	}
 
+	/**
+	 * Main method
+	 */
+	request(method, data) {
+		// prepare request
+		let {URI, options} = this.prepare(method, data);
+
+		// use fetch lib to perform request
+		return fetch(URI, options)
+			.then((req) => {
+					// status is an error
+					if (req.status >= 400) {
+						return Promise.reject(req);
+					}
+				}
+			);
+	}
+
 	// return flatten payload
 	flattenPayload(data) {
 		let dataKeys = Object.keys(data);
@@ -97,7 +127,9 @@ export default class http {
 		return newPayload.join('&');
 	}
 
-	// turn JS objects into base64 strings
+	/**
+	 * turn JS objects into base64 strings
+	 */
 	serialiseData(data) {
 		let newData = {};
 		let dataKeys = Object.keys(data);
@@ -112,38 +144,26 @@ export default class http {
 		return newData;
 	}
 
+	/**
+	 * Aliases of request
+	 */
 	get(data) {
-		let {URI, options} = this.prepare(VERBS.GET, data);
-		return fetch(URI, options).then((res) => {
-			return res;
-		});
+		return this.request(VERBS.GET, data);
 	}
 
 	post(data) {
-		let {URI, options} = this.prepare(VERBS.POST, data);
-		return fetch(URI, options).then((res) => {
-			return res;
-		});
+		return this.request(VERBS.POST, data);
 	}
 
 	patch(data) {
-		let {URI, options} = this.prepare(VERBS.PATCH, data);
-		return fetch(URI, options).then((res) => {
-			return res;
-		});
+		return this.request(VERBS.PATCH, data);
 	}
 
 	put(data) {
-		let {URI, options} = this.prepare(VERBS.PUT, data);
-		return fetch(URI, options).then((res) => {
-			return res;
-		});
+		return this.request(VERBS.PUT, data);
 	}
 
 	delete(data) {
-		let {URI, options} = this.prepare(VERBS.DELETE, data);
-		return fetch(URI, options).then((res) => {
-			return res;
-		});
+		return this.request(VERBS.DELETE, data);
 	}
 }
