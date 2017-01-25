@@ -104,17 +104,8 @@ export default class http {
 		// prepare request
 		let {URI, options} = this.prepare(method, data);
 
-		// use fetch lib to perform request
-		return fetch(URI, options)
-			.then((req) => {
-					// status is an error
-					if (req.status >= 400) {
-						return Promise.reject(req);
-					}
-
-					return req;
-				}
-			);
+		// adding middlewares and use fetch lib to perform request
+		return this.provider.concatMiddlewares(fetch(URI, options));
 	}
 
 	// return flatten payload

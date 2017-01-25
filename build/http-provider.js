@@ -14,19 +14,65 @@ var httpProvider = function () {
 	function httpProvider() {
 		_classCallCheck(this, httpProvider);
 
+		this.middlewares = [];
+
 		this.options = {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: ''
+				Authorization: null
 			}
 		};
 	}
+
+	/**
+  * Fetch options
+  */
+
 
 	_createClass(httpProvider, [{
 		key: 'getOptions',
 		value: function getOptions() {
 			return Object.assign({}, this.options);
 		}
+	}, {
+		key: 'setOptions',
+		value: function setOptions(options) {
+			Object.assign(this.options, options);
+		}
+
+		/**
+   * Add new middleware
+   */
+
+	}, {
+		key: 'use',
+		value: function use(middleware) {
+			this.middlewares.push(middleware);
+		}
+
+		/**
+   * Concat middlewares to the main promise
+   */
+
+	}, {
+		key: 'concatMiddlewares',
+		value: function concatMiddlewares(fetchPromise) {
+			var promise = fetchPromise;
+
+			this.middlewares.forEach(function (middleware) {
+				promise = promise.then(function (req) {
+					return middleware(req);
+				} // return Promise.resolve/reject
+				);
+			});
+
+			return promise;
+		}
+
+		/**
+   * JWT utils
+   */
+
 	}, {
 		key: 'setJwtToken',
 		value: function setJwtToken(token) {
@@ -35,7 +81,7 @@ var httpProvider = function () {
 	}, {
 		key: 'removeJwtToken',
 		value: function removeJwtToken() {
-			this.options.headers.Authorization = '';
+			this.options.headers.Authorization = null;
 		}
 	}]);
 

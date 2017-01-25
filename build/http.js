@@ -156,17 +156,10 @@ var http = function () {
 			    URI = _prepare.URI,
 			    options = _prepare.options;
 
-			// use fetch lib to perform request
+			// adding middlewares and use fetch lib to perform request
 
 
-			return fetch(URI, options).then(function (req) {
-				// status is an error
-				if (req.status >= 400) {
-					return Promise.reject(req);
-				}
-
-				return req;
-			});
+			return this.provider.concatMiddlewares(fetch(URI, options));
 		}
 
 		// return flatten payload
