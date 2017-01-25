@@ -38,6 +38,11 @@ var http = function () {
 		this.createParams(apiURI);
 	}
 
+	/**
+  * Build params struct
+  */
+
+
 	_createClass(http, [{
 		key: 'createParams',
 		value: function createParams(URI) {
@@ -62,6 +67,11 @@ var http = function () {
 				lookup: lookup
 			};
 		}
+
+		/**
+   * Interpolate params
+   */
+
 	}, {
 		key: 'interpolate',
 		value: function interpolate(data) {
@@ -73,6 +83,11 @@ var http = function () {
 
 			return newParts.join('/');
 		}
+
+		/**
+   * Remap data
+   */
+
 	}, {
 		key: 'remap',
 		value: function remap(data) {
@@ -95,6 +110,11 @@ var http = function () {
 
 			return { params: params, payload: payload };
 		}
+
+		/**
+   * Call this only in test
+   */
+
 	}, {
 		key: 'prepare',
 		value: function prepare(method, data) {
@@ -124,6 +144,29 @@ var http = function () {
 			return { URI: URI, options: options };
 		}
 
+		/**
+   * Main method
+   */
+
+	}, {
+		key: 'request',
+		value: function request(method, data) {
+			// prepare request
+			var _prepare = this.prepare(method, data),
+			    URI = _prepare.URI,
+			    options = _prepare.options;
+
+			// use fetch lib to perform request
+
+
+			return fetch(URI, options).then(function (req) {
+				// status is an error
+				if (req.status >= 400) {
+					return Promise.reject(req);
+				}
+			});
+		}
+
 		// return flatten payload
 
 	}, {
@@ -139,7 +182,9 @@ var http = function () {
 			return newPayload.join('&');
 		}
 
-		// turn JS objects into base64 strings
+		/**
+   * turn JS objects into base64 strings
+   */
 
 	}, {
 		key: 'serialiseData',
@@ -154,60 +199,35 @@ var http = function () {
 
 			return newData;
 		}
+
+		/**
+   * Aliases of request
+   */
+
 	}, {
 		key: 'get',
 		value: function get(data) {
-			var _prepare = this.prepare(VERBS.GET, data),
-			    URI = _prepare.URI,
-			    options = _prepare.options;
-
-			return fetch(URI, options).then(function (res) {
-				return res;
-			});
+			return this.request(VERBS.GET, data);
 		}
 	}, {
 		key: 'post',
 		value: function post(data) {
-			var _prepare2 = this.prepare(VERBS.POST, data),
-			    URI = _prepare2.URI,
-			    options = _prepare2.options;
-
-			return fetch(URI, options).then(function (res) {
-				return res;
-			});
+			return this.request(VERBS.POST, data);
 		}
 	}, {
 		key: 'patch',
 		value: function patch(data) {
-			var _prepare3 = this.prepare(VERBS.PATCH, data),
-			    URI = _prepare3.URI,
-			    options = _prepare3.options;
-
-			return fetch(URI, options).then(function (res) {
-				return res;
-			});
+			return this.request(VERBS.PATCH, data);
 		}
 	}, {
 		key: 'put',
 		value: function put(data) {
-			var _prepare4 = this.prepare(VERBS.PUT, data),
-			    URI = _prepare4.URI,
-			    options = _prepare4.options;
-
-			return fetch(URI, options).then(function (res) {
-				return res;
-			});
+			return this.request(VERBS.PUT, data);
 		}
 	}, {
 		key: 'delete',
 		value: function _delete(data) {
-			var _prepare5 = this.prepare(VERBS.DELETE, data),
-			    URI = _prepare5.URI,
-			    options = _prepare5.options;
-
-			return fetch(URI, options).then(function (res) {
-				return res;
-			});
+			return this.request(VERBS.DELETE, data);
 		}
 	}]);
 
