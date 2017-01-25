@@ -164,6 +164,8 @@ var http = function () {
 				if (req.status >= 400) {
 					return Promise.reject(req);
 				}
+
+				return req;
 			});
 		}
 

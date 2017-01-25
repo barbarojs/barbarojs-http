@@ -111,6 +111,8 @@ export default class http {
 					if (req.status >= 400) {
 						return Promise.reject(req);
 					}
+
+					return req;
 				}
 			);
 	}
