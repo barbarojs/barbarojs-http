@@ -4,11 +4,11 @@ class httpProvider {
 
 	constructor() {
 		this.middlewares = [];
-
+		this.hostname = null;
 		this.options = {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: null
+				Authorization: ''
 			}
 		};
 	}
@@ -56,7 +56,18 @@ class httpProvider {
 	}
 
 	removeJwtToken() {
-		this.options.headers.Authorization = null;
+		this.options.headers.Authorization = '';
+	}
+
+	/**
+	 * Force hostname and port, useful for testing
+	 */
+	setHostname(hostname) {
+		this.hostname = hostname;
+	}
+
+	getHostname() {
+		return this.hostname;
 	}
 
 }

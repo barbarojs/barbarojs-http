@@ -48,13 +48,15 @@ export default class http {
 	 * Interpolate params
 	 */
 	interpolate(data) {
+		let hostname = httpProvider.getHostname();
 		let newParts = this.interpolations.parts.slice(0);
-
 		this.interpolations.lookup.forEach((position, k) => {
 			newParts[position] = data[k];
 		});
+		let URI = newParts.join('/');
 
-		return newParts.join('/');
+		// use testing hostname
+		return hostname ? `${hostname}${URI}` : URI;
 	}
 
 	/**
