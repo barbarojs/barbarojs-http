@@ -75,13 +75,15 @@ var http = function () {
 	}, {
 		key: 'interpolate',
 		value: function interpolate(data) {
+			var hostname = _httpProvider2.default.getHostname();
 			var newParts = this.interpolations.parts.slice(0);
-
 			this.interpolations.lookup.forEach(function (position, k) {
 				newParts[position] = data[k];
 			});
+			var URI = newParts.join('/');
 
-			return newParts.join('/');
+			// use testing hostname
+			return hostname ? '' + hostname + URI : URI;
 		}
 
 		/**

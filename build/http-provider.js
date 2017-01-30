@@ -15,11 +15,11 @@ var httpProvider = function () {
 		_classCallCheck(this, httpProvider);
 
 		this.middlewares = [];
-
+		this.hostname = null;
 		this.options = {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: null
+				Authorization: ''
 			}
 		};
 	}
@@ -81,7 +81,22 @@ var httpProvider = function () {
 	}, {
 		key: 'removeJwtToken',
 		value: function removeJwtToken() {
-			this.options.headers.Authorization = null;
+			this.options.headers.Authorization = '';
+		}
+
+		/**
+   * Force hostname and port, useful for testing
+   */
+
+	}, {
+		key: 'setHostname',
+		value: function setHostname(hostname) {
+			this.hostname = hostname;
+		}
+	}, {
+		key: 'getHostname',
+		value: function getHostname() {
+			return this.hostname;
 		}
 	}]);
 
