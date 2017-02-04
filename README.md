@@ -31,7 +31,7 @@ conn.post({id: 123, q: 1, name: 'me'}).then(x => console.log(x)); // /test/123 -
 
 ## Special Features
 
-Set developemnt server
+Set development server
 
 ```javascript
 import {httpProvider} from 'barbarojs-http';
